@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 
 import '../utils/utils.dart';
 
@@ -21,9 +20,9 @@ class LocalizationHelper extends ChangeNotifier{
 }
 
   // store locale to storage
-  storeLocale(Locale locale){
+  storeLocale(Locale locale)async{
    Map json= localeToJson(locale);
-   storage.storeData('locale', json.toString());
+   await storage.storeData('locale', json.toString());
    retrieveLocale();
    notifyListeners();
   }

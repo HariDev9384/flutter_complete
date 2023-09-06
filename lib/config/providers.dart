@@ -2,9 +2,12 @@
 
 import '../utils/utils.dart';
 
-class MyProvider {
-  List<SingleChildWidget> get providers => [
-   ...NetworkProvider().networkProviders,
-   ...HelperProvider().helperProviders
-  ];
+
+class MyProviders {
+ static List<SingleChildWidget> get providers {
+    return [
+      ...NetworkProvider.networkProviders,
+      ...HelperProvider.helperProviders
+    ];
+  }
 }

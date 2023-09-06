@@ -12,27 +12,30 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   String selectedLanguage = Languages.english;
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) =>fetch());
+  }
+  fetch() async {
+    if(mounted){
+    var prov= Provider.of<ProductsViewModel>(context,listen: false);
+    await prov.fetchProductListApi();
+    }
+  }
+  @override
   Widget build(BuildContext context) {
     var t=AppLocalizations.of(context); 
     return Scaffold(
+      drawer: const SliderDrawer(),
       appBar: AppBar(
         title: Text('${t!.appTitle} ${t.localeName}'),
-        leading: Consumer<ThemeHelper>(
-          builder: (context, theme, child) => 
-          IconButton(
-            onPressed: (){
-              if(mounted){
-                theme.toggleTheme();
-                theme.notifyListeners();
-              }
-            }, icon: Icon(theme.currentTheme==ThemeMode.light?Icons.light_mode_outlined:Icons.dark_mode_outlined)),
-        ),
         ),
       body: SizedBox(
         height: MediaQuery.of(context).size.height/1,
         width: MediaQuery.of(context).size.width/1,
         child: Column(
           children: [
+            IconButton(onPressed: fetch, icon: const Icon(Icons.send)),
             Row(
               children: [
                 DropdownButton<String>(
@@ -43,18 +46,19 @@ class _HomeState extends State<Home> {
               );
             }).toList(),
             value: selectedLanguage,
-            onChanged: (String? newValue) {
+            onChanged: (String? newValue) async{
                 // Update the selected language when the user makes a selection.
-                  setState(() {
                   selectedLanguage = newValue!;
                   var localHelper=Provider.of<LocalizationHelper>(context,listen: false);
                   Locale newLocale=localHelper.langugetoLocale(selectedLanguage);
-                  localHelper.storeLocale(newLocale);
+                  await localHelper.storeLocale(newLocale);
                   localHelper.notifyListeners();
-                      });
+                  setState(() {
+                    
+                  });
             },
           ),
-          ElevatedButton(onPressed: (){}, child: const Text('data'))
+          ElevatedButton(onPressed:()async=>fetch(), child: const Text('data'))
               ],
             ),
           ],

@@ -1,8 +1,10 @@
 
-
 import 'utils/utils.dart';
 
-intialize()=> runApp(MultiProvider(providers:MyProvider().providers,child: const MyApp()));
+intialize() {
+  //Export().exportWatcher();
+  runApp(MultiProvider(providers:MyProviders.providers,child: const MyApp()));
+}
 
 
 
