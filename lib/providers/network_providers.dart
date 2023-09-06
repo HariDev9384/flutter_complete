@@ -1,7 +1,11 @@
 import '../utils/utils.dart';
 
 class NetworkProvider {
-  List<SingleChildWidget> get networkProviders => [
+ static List<SingleChildWidget> get networkProviders {
+  final Dio client=Clients().getClient;
+   return [
     // Add other providers here if needed.
+    ChangeNotifierProvider(create: (_)=> ProductsViewModel(repo: ProductRepository(client: client)))
   ];
+ }
 }

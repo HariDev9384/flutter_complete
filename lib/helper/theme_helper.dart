@@ -10,6 +10,13 @@ class ThemeHelper extends ChangeNotifier{
     currentTheme = currentTheme == MyTheme.lightTheme ? MyTheme.darkTheme : MyTheme.lightTheme;
     notifyListeners();
   }
+   islight(){
+    if(currentTheme==MyTheme.lightTheme){
+      return true;
+    }else{
+      return false;
+    }
+  }
 
   @override
   void notifyListeners() {
