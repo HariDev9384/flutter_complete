@@ -1,4 +1,6 @@
 
+import 'package:complete/view/screens/product_home.dart';
+
 import 'utils/utils.dart';
 
 intialize() {
@@ -27,7 +29,7 @@ class _MyAppState extends State<MyApp> {
        localizationsDelegates: AppLocalizations.localizationsDelegates,
        supportedLocales: AppLocalizations.supportedLocales,
        locale: locale.defaultLocale, // Set English (us) as default
-       home: const Home(),
+       home:  ProductHome(),
       ),
     );
   }
